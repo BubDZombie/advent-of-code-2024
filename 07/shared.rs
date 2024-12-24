@@ -9,7 +9,7 @@ pub struct Equation {
 
 pub fn parse_input() -> Vec<Equation> {
     let mut equations:Vec<Equation> = Vec::new();
-    let file = File::open("input_small.txt").unwrap();
+    let file = File::open("input.txt").unwrap();
     let reader = BufReader::new(file);
     for line in reader.lines() {
         let l = line.unwrap();
