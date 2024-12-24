@@ -1,27 +1,7 @@
-use std::fs::File;
-use std::io::{self, prelude::*, BufReader};
+mod shared;
 
-#[derive(Debug)]
-struct Equation {
-    test_value: usize,
-    operands: Vec<usize>,
-}
-
-fn main() -> io::Result<()> {
-    let mut equations:Vec<Equation> = Vec::new();
-    let file = File::open("input.txt")?;
-    let reader = BufReader::new(file);
-    for line in reader.lines() {
-        let l = line.unwrap();
-        let parts:Vec<&str> = l.split(':').collect();
-        let test_value:usize = parts[0].parse::<usize>().unwrap();
-        let mut operands:Vec<usize> = Vec::new();
-        for operand_string in parts[1].split_whitespace() {
-            operands.push(operand_string.parse::<usize>().unwrap());
-        }
-        equations.push(Equation{test_value:test_value, operands:operands});
-    }
-    println!("{:?}", equations);
+fn main() {
+    let equations = shared::parse_input();
 
     let mut total = 0;
     for equation in equations {
@@ -44,7 +24,6 @@ fn main() -> io::Result<()> {
             }
         }
     }
-    Ok(())
 }
 
 fn get_operators(count:usize) -> Vec<Vec<char>> {
